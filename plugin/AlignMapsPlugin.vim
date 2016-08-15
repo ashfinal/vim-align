@@ -198,7 +198,7 @@ if !hasmapto('<Plug>AM_tab','n')	|AlignMapsMake tab     |endif
 if !hasmapto('<Plug>AM_tml','n')	|AlignMapsMake tml     |endif
 if !hasmapto('<Plug>AM_tsp','n')	|AlignMapsMake tsp     |endif
 if !hasmapto('<Plug>AM_tsq','n')	|AlignMapsMake tsq     |endif
-if !hasmapto('<Plug>AM_tt','n')		|AlignMapsMake tt      |endif
+if !hasmapto('<Plug>AM_tl','n')		|AlignMapsMake tl      |endif
 if !hasmapto('<Plug>AM_tab','n')	|AlignMapsMake tab     |endif
 
 " <Plug> normal mode mappings
@@ -225,7 +225,7 @@ nnoremap <silent> <script> <Plug>AM_tab		<SID>WS:'a,.s/^\(\t*\)\(.*\)$/\=submatc
 nnoremap <silent> <script> <Plug>AM_tml		<SID>WS:AlignCtrl mWp1P0=l \\\@<!\\\s*$<CR>:'a,.Align<CR><SID>WE
 nnoremap <silent> <script> <Plug>AM_tsp		<SID>WS:keepj 'a,.s/^\(\s*\)\(.*\)/\=submatch(1).escape(substitute(submatch(2),'\s\+','@','g'),'\')/<CR>:AlignCtrl mI=lp0P0 @<CR>:'a,.Align<CR>:keepj 'y+1,'z-1s/@/ /g<CR><SID>WE
 nnoremap <silent> <script> <Plug>AM_tsq		<SID>WS:'a,.AlignReplaceQuotedSpaces<CR>:keepj 'a,.s/^\(\s*\)\(.*\)/\=submatch(1).substitute(submatch(2),'\s\+','@','g')/<CR>:AlignCtrl mIp0P0=l @<CR>:'a,.Align<CR>:keepj 'y+1,'z-1s/[%@]/ /g<CR><SID>WE
-nnoremap <silent> <script> <Plug>AM_tt		<SID>WS:AlignCtrl mIp1P1=l \\\@<!& \\\\<CR>:'a,.Align<CR><SID>WE
+nnoremap <silent> <script> <Plug>AM_tl		<SID>WS:AlignCtrl mIp1P1=l \\\@<!& \\\\<CR>:'a,.Align<CR><SID>WE
 
 " =====================================================================
 " Menu Support: {{{1
