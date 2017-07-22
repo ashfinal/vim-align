@@ -1,7 +1,7 @@
 " AlignMaps.vim : support functions for AlignMaps
 "   Author: Charles E. Campbell
-"     Date: Apr 11, 2016
-"  Version: 44
+"     Date: Oct 24, 2016
+"  Version: 45	ASTRO-ONLY
 " Copyright:    Copyright (C) 1999-2012 Charles E. Campbell {{{1
 "               Permission is hereby granted to use and distribute this code,
 "               with or without modifications, provided that this copyright
@@ -16,7 +16,7 @@
 if &cp || exists("g:loaded_AlignMaps")
  finish
 endif
-let g:loaded_AlignMaps= "v44"
+let g:loaded_AlignMaps= "v45"
 let s:keepcpo         = &cpo
 set cpo&vim
 
@@ -102,11 +102,13 @@ fun! AlignMaps#WrapperEnd() range
    keepj norm! 'yjmakdd'zdd
 
    " restore original 'y, 'z, and window positioning
-   call RestoreMark(s:alignmaps_keepmy)
-   call RestoreMark(s:alignmaps_keepmz)
-   if zstationary > 0
-    call RestoreWinPosn(s:alignmaps_posn)
-"    call Decho("restored window positioning")
+   if exists("s:alignmaps_posn")
+	call RestoreMark(s:alignmaps_keepmy)
+	call RestoreMark(s:alignmaps_keepmz)
+	if zstationary > 0
+	 call RestoreWinPosn(s:alignmaps_posn)
+ "    call Decho("restored window positioning")
+	endif
    endif
 
    " restoration of options
@@ -128,23 +130,28 @@ endfun
 
 " ---------------------------------------------------------------------
 " AlignMaps#StdAlign: some semi-standard align calls {{{2
-fun! AlignMaps#StdAlign(mode) range
+fun! AlignMaps#StdAlign(mode,...) range
 "  call Dfunc("AlignMaps#StdAlign(mode=".a:mode.")")
+  if a:0 == 2
+   let alignchar= a:1
+  else
+   let alignchar= '@'
+  endif
   if     a:mode == 1
    " align on @
 "   call Decho("align on @")
-   AlignCtrl mIp1P1=l @
+   exe "AlignCtrl mIp1P1=l ".alignchar
    'a,.Align
   elseif a:mode == 2
    " align on @, retaining all initial white space on each line
 "   call Decho("align on @, retaining all initial white space on each line")
-   AlignCtrl mWp1P1=l @
+   exe "AlignCtrl mWp1P1=l ".alignchar
    'a,.Align
   elseif a:mode == 3
    " like mode 2, but ignore /* */-style comments
 "   call Decho("like mode 2, but ignore /* */-style comments")
    AlignCtrl v ^\s*/[/*]
-   AlignCtrl mWp1P1=l @
+   exe "AlignCtrl mWp1P1=l ".alignchar
    'a,.Align
   else
    echoerr "(AlignMaps) AlignMaps#StdAlign doesn't support mode#".a:mode

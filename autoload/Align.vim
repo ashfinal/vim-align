@@ -1,7 +1,7 @@
 " Align: tool to align multiple fields based on one or more separators
 "   Author:		Charles E. Campbell
-"   Date:		Apr 11, 2016
-"   Version:	39
+"   Date:		Oct 21, 2016
+"   Version:	40	ASTRO-ONLY
 " GetLatestVimScripts: 294 1 :AutoInstall: Align.vim
 " GetLatestVimScripts: 1066 1 :AutoInstall: cecutil.vim
 " Copyright:    Copyright (C) 1999-2013 Charles E. Campbell {{{1
@@ -25,7 +25,7 @@
 if exists("g:loaded_Align") || &cp
  finish
 endif
-let g:loaded_Align = "v39"
+let g:loaded_Align = "v40"
 if v:version < 700
  echohl WarningMsg
  echo "***warning*** this version of Align needs vim 7.0"
@@ -492,8 +492,8 @@ fun! Align#Align(hasctrl,...) range
   endif
 
   " Align needs these options
-  setl et
   set  paste
+  setl et
 
   " convert selected range of lines to use spaces instead of tabs
   " but if first line's initial white spaces are to be retained
@@ -1103,14 +1103,17 @@ endfun
 
 " ---------------------------------------------------------------------
 " s:RestoreUserSettings: {{{1
+"   Note that paste saves and restores a select set of settings internally to vim,
+"   hence its user setting is restored first so other user settings will be restored
+"   correctly.
 fun! s:RestoreUserSettings()
 "  call Dfunc("s:RestoreUserSettings() s:saved_user_options=".(exists("s:saved_user_options")? s:saved_user_options : 'n/a'))
   if exists("s:saved_user_options") && s:saved_user_options == 1
+   let &paste   = s:keep_paste |unlet s:keep_paste
    let &cedit   = s:keep_cedit |unlet s:keep_cedit
+   let &l:et    = s:keep_et    |unlet s:keep_et
    let &hls     = s:keep_hls   |unlet s:keep_hls
    let &ic      = s:keep_ic    |unlet s:keep_ic
-   let &l:et    = s:keep_et    |unlet s:keep_et
-   let &paste   = s:keep_paste |unlet s:keep_paste
    let &report  = s:keep_report|unlet s:keep_report
    let @/       = s:keep_search|unlet s:keep_search
   endif

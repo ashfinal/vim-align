@@ -37,7 +37,7 @@ if &cp || exists("g:loaded_AlignMapsPlugin")
  finish
 endif
 let s:keepcpo                = &cpo
-let g:loaded_AlignMapsPlugin = "v44"
+let g:loaded_AlignMapsPlugin = "v45"
 set cpo&vim
 
 " =====================================================================

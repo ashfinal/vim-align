@@ -1,4 +1,4 @@
-*align.txt*	The Alignment Tool			Apr 11, 2016
+*align.txt*	The Alignment Tool			Oct 21, 2016
 
 Author:    Charles E. Campbell      <NdrOchip@ScampbellPfamily.AbizM>
            (remove NOSPAM from Campbell's email first)
@@ -1132,6 +1132,16 @@ ALIGNMENT						*:Align* *align-align* {{{2
 	  let g:alignmaps_usanumber= 1
 <	in one's <.vimrc>.
 
+	*g:alignmaps_usanumber1000* *g:alignmaps_euronumber1000*
+	Like |g:alignmaps_usanumber| and |g:alignmaps_euronumber|,
+	one may specify \aenum behavior for \anum by putting >
+	  let g:alignmaps_euronumber1000= 1
+<	or \aunum behavior for \anum by putting >
+	  let g:alignmaps_usanumber1000= 1
+<	in one's <.vimrc>.
+	In addition, these maps will permit usa: "," and euro: "." separators
+	as part of the numbers (ie. for usa: 1,002,003  for euro: 1.002.003).
+
 
 	---------------------------
 	Alignment Map Examples: \ascom			*alignmap-ascom* {{{3
@@ -1415,6 +1425,14 @@ ALIGNMENT						*:Align* *align-align* {{{2
 4. Alignment Tools' History				*align-history* {{{1
 
 ALIGN HISTORY								{{{2
+	v40	Oct 21, 2016	* (Taylor Venable) 'paste', when set, saves a
+				  number of options inside vim itself.  When
+				  'paste' is reset, those options are then
+				  restored.  Must set/reset paste with this
+				  effect in mind.
+				  (in particular, this affects Align's
+				  sequence in temporarily setting and
+				  restoring 'et' and 'paste')
 	v39	Sep 05, 2013	* strdisplaywidth() now used by default in
 				  s:Strlen().
 	v38	Mar 18, 2013	* (Gary Johnson) pointed out that changing
